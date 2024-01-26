@@ -1,17 +1,54 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:eco_connect/components/my_button.dart';
 import 'package:eco_connect/components/my_textfield.dart';
 import 'package:eco_connect/components/square_tile.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
   LoginPage({super.key});
 
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
   // text editing controllers
-  final usernameController = TextEditingController();
+  final emailController = TextEditingController();
+
   final passwordController = TextEditingController();
 
   // sign user in method
-  void signUserIn() {}
+  void signUserIn() async {
+    // show loading circle
+    showDialog(context: context, builder: (context) {
+      return const Center(child: CircularProgressIndicator(),
+      );
+    });
+    // try sign in
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+      email: emailController.text, 
+      password: passwordController.text
+      );
+      Navigator.pop(context);
+    } on FirebaseAuthException catch (e) {
+      print(e.code);
+      if(e.code=='invalid-credential'){
+        invalidCredential();
+        print("__________________");
+        print(e.code);
+        print("__________________");
+      }
+    }
+
+    // pop the loading circle
+  }
+  void invalidCredential() {
+    showDialog(context: context, builder: (context) {
+      return AlertDialog(title: Text("Incorrect Email or Password"));
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -19,14 +56,13 @@ class LoginPage extends StatelessWidget {
       backgroundColor: Colors.grey[300],
       body: SafeArea(
         child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+          child: ListView(
             children: [
               const SizedBox(height: 50),
 
               // logo
               const Icon(
-                Icons.lock,
+                Icons.network_cell,
                 size: 100,
                 color: Color.fromARGB(255, 11, 106, 14),
               ),
@@ -34,20 +70,22 @@ class LoginPage extends StatelessWidget {
               const SizedBox(height: 50),
 
               // welcome back, you've been missed!
-              Text(
-                'Welcome back you\'ve been missed!',
-                style: TextStyle(
-                  color: Colors.grey[700],
-                  fontSize: 16,
+              Center(
+                child: Text(
+                  'Welcome back you\'ve been missed!',
+                  style: TextStyle(
+                    color: Colors.grey[700],
+                    fontSize: 16,
+                  ),
                 ),
               ),
 
               const SizedBox(height: 25),
 
-              // username textfield
+              // email textfield
               MyTextField(
-                controller: usernameController,
-                hintText: 'Username',
+                controller: emailController,
+                hintText: 'Email',
                 obscureText: false,
               ),
 
