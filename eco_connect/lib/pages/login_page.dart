@@ -36,9 +36,8 @@ class _LoginPageState extends State<LoginPage> {
       print(e.code);
       if(e.code=='invalid-credential'){
         invalidCredential();
-        print("__________________");
-        print(e.code);
-        print("__________________");
+        Navigator.pop(context);
+        
       }
     }
 
