@@ -1,3 +1,4 @@
+import 'package:eco_connect/services/auth_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -156,9 +157,12 @@ class _LoginPageState extends State<LoginPage> {
               // google + apple sign in buttons
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
+                children: [
                   // google button
-                  SquareTile(imagePath: 'lib/images/google.png'),
+                  SquareTile(
+                    onTap: () => AuthService().signInWithGoogle(),
+                    imagePath: 'lib/images/google.png'
+                    ),
 
                   SizedBox(width: 25),
 

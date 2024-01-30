@@ -1,3 +1,4 @@
+import 'package:eco_connect/services/auth_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -43,10 +44,8 @@ class _RegisterPageState extends State<RegisterPage> {
         // show error message
         Navigator.pop(context);
         invalidCredential("Password(s) don't match! Or is less than 6 characters");
-        print("can't*******************");
       }
     } on FirebaseAuthException catch (e) {
-      print(e.code);
       if(e.code=='invalid-credential'){
         invalidCredential(e.code);
         Navigator.pop(context);
@@ -169,9 +168,12 @@ class _RegisterPageState extends State<RegisterPage> {
               // google + apple sign in buttons
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
+                children: [
                   // google button
-                  SquareTile(imagePath: 'lib/images/google.png'),
+                  SquareTile(
+                    onTap: () => AuthService().signInWithGoogle(),
+                    imagePath: 'lib/images/google.png'
+                    ),
 
                   SizedBox(width: 25),
 
