@@ -5,47 +5,65 @@ import 'package:eco_connect/components/my_button.dart';
 import 'package:eco_connect/components/my_textfield.dart';
 import 'package:eco_connect/components/square_tile.dart';
 
-class LoginPage extends StatefulWidget {
+class RegisterPage extends StatefulWidget {
   final Function()? onTap;
-  LoginPage({super.key, required this.onTap});
+  RegisterPage({super.key, required this.onTap});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<RegisterPage> createState() => _RegisterPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _RegisterPageState extends State<RegisterPage> {
   // text editing controllers
   final emailController = TextEditingController();
-
   final passwordController = TextEditingController();
+  final confirmpasswordController = TextEditingController();
 
-  // sign user in method
-  void signUserIn() async {
+  // sign user up method
+  void signUserUp() async {
     // show loading circle
     showDialog(context: context, builder: (context) {
       return const Center(child: CircularProgressIndicator(),
       );
     });
-    // try sign in
+    // try creating the user
     try {
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
-      email: emailController.text, 
-      password: passwordController.text
-      );
-      Navigator.pop(context);
+      // check if password is same as confirm paswword. and both of them are greater than 6 characters
+      final passLen = passwordController.text.length;
+      if(passwordController.text == confirmpasswordController.text && passLen>=6)
+      {   
+            await FirebaseAuth.instance.createUserWithEmailAndPassword(
+            email: emailController.text, 
+            password: passwordController.text
+          );
+          Navigator.pop(context);
+          
+      }
+      else {
+        // show error message
+        Navigator.pop(context);
+        invalidCredential("Password(s) don't match! Or is less than 6 characters");
+        print("can't*******************");
+      }
     } on FirebaseAuthException catch (e) {
       print(e.code);
       if(e.code=='invalid-credential'){
-        invalidCredential();
+        invalidCredential(e.code);
         Navigator.pop(context);
         
       }
     }
 
+    // pop the loading circle
   }
-  void invalidCredential() {
+  void invalidCredential(error) {
     showDialog(context: context, builder: (context) {
-      return AlertDialog(title: Text("Incorrect Email or Password"));
+      if(error=='invalid-credential'){
+        return AlertDialog(title: Text("Incorrect Email or Password"));
+      }
+      else {
+        return AlertDialog(title: Text(error));
+      }
     });
   }
 
@@ -57,7 +75,7 @@ class _LoginPageState extends State<LoginPage> {
         child: Center(
           child: ListView(
             children: [
-              const SizedBox(height: 50),
+              const SizedBox(height: 25),
 
               // logo
               const Icon(
@@ -66,12 +84,12 @@ class _LoginPageState extends State<LoginPage> {
                 color: Color.fromARGB(255, 11, 106, 14),
               ),
 
-              const SizedBox(height: 50),
+              const SizedBox(height: 25),
 
-              // welcome back, you've been missed!
+              // Let's create an account for you
               Center(
                 child: Text(
-                  'Welcome back you\'ve been missed!',
+                  'Join the community of action takers!',
                   style: TextStyle(
                     color: Colors.grey[700],
                     fontSize: 16,
@@ -99,26 +117,21 @@ class _LoginPageState extends State<LoginPage> {
 
               const SizedBox(height: 10),
 
-              // forgot password?
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Text(
-                      'Forgot Password?',
-                      style: TextStyle(color: Colors.grey[600]),
-                    ),
-                  ],
-                ),
+              // confirm password textfield
+              MyTextField(
+                controller: confirmpasswordController,
+                hintText: 'Confirm Password',
+                obscureText: true,
               ),
+
+            
 
               const SizedBox(height: 25),
 
               // sign in button
               MyButton(
-                text: "Sign in",
-                onTap: signUserIn,
+                text: "Sign up",
+                onTap: signUserUp,
               ),
 
               const SizedBox(height: 50),
@@ -167,21 +180,21 @@ class _LoginPageState extends State<LoginPage> {
                 ],
               ),
 
-              const SizedBox(height: 50),
+              const SizedBox(height: 25),
 
               // not a member? register now
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    'Not a member?',
+                    'Already have an Account?',
                     style: TextStyle(color: Colors.grey[700]),
                   ),
                   const SizedBox(width: 4),
                   GestureDetector(
                     onTap: widget.onTap,
                     child: const Text(
-                      'Register now',
+                      'Login now',
                       style: TextStyle(
                         color: Colors.green,
                         fontWeight: FontWeight.bold,
