@@ -1,3 +1,4 @@
+import 'package:eco_connect/pages/forgot_pw_page.dart';
 import 'package:eco_connect/services/auth_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -106,9 +107,19 @@ class _LoginPageState extends State<LoginPage> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    Text(
-                      'Forgot Password?',
-                      style: TextStyle(color: Colors.grey[600]),
+                    GestureDetector(
+                      onTap:() {
+                        Navigator.push(context, 
+                        MaterialPageRoute(builder: (context){
+                          return ForgotPasswordPage();
+                          },
+                        ),
+                      );
+                      },
+                      child: Text(
+                        'Forgot Password?',
+                        style: TextStyle(color: Colors.grey[600]),
+                      ),
                     ),
                   ],
                 ),
