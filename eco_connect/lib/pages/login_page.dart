@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:eco_connect/components/my_button.dart';
 import 'package:eco_connect/components/my_textfield.dart';
 import 'package:eco_connect/components/square_tile.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class LoginPage extends StatefulWidget {
   final Function()? onTap;
@@ -54,7 +55,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[300],
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: SafeArea(
         child: Center(
           child: ListView(
@@ -62,10 +63,15 @@ class _LoginPageState extends State<LoginPage> {
               const SizedBox(height: 50),
 
               // logo
-              const Icon(
+              /*const Icon(
                 Icons.landscape,
                 size: 100,
                 color: Color.fromARGB(255, 11, 106, 14),
+              ),*/
+              // svg
+              SvgPicture.asset(
+                'lib/images/main_icon.svg',
+                height: 64,
               ),
 
               const SizedBox(height: 50),
