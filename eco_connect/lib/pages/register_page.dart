@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eco_connect/services/auth_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -34,11 +35,23 @@ class _RegisterPageState extends State<RegisterPage> {
       final passLen = passwordController.text.length;
       if(passwordController.text == confirmpasswordController.text && passLen>=6)
       {   
-            await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          // create a user
+            UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
             email: emailController.text, 
             password: passwordController.text
           );
-          Navigator.pop(context);
+
+          // after that create a new document in cloud firebase called Users
+          await FirebaseFirestore.instance
+          .collection('Users')
+          .doc(userCredential.user!.email)
+          .set({
+            'username': emailController.text.split('@')[0],
+            'bio': 'empty bio',
+            'isExpert':false,
+            'isIndustry':false,
+          });
+          if(context.mounted) Navigator.pop(context);
           
       }
       else {
