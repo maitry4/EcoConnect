@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eco_connect/components/text_box.dart';
+import 'package:eco_connect/components/my_button.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -88,6 +89,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   color: Theme.of(context).appBarTheme.backgroundColor,
                 ),
 
+
                 const SizedBox(height: 10,),
                 // user email
                 Text(
@@ -96,7 +98,23 @@ class _ProfilePageState extends State<ProfilePage> {
                   style: TextStyle(color: Colors.grey[700]),
                 ),
 
-                const SizedBox(height: 50,),
+                const SizedBox(height: 10,),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children:[
+                    MyButton(
+                      text: "Expert",
+                      onTap: () {},
+                    ),
+                const SizedBox(height: 10,),
+                    MyButton(
+                      text: "Industry",
+                      onTap: () {},
+                    ),
+                  ]
+                ),
+
+                const SizedBox(height: 30,),
 
                 // user details
                 Padding(
