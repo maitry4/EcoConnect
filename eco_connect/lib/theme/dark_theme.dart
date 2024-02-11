@@ -7,7 +7,7 @@ const primaryColor = Colors.white;
 const secondaryColor = Colors.grey; 
 
 ThemeData darkTheme = ThemeData.dark().copyWith(
-  scaffoldBackgroundColor:mobileBackgroundColor,
+  scaffoldBackgroundColor:Colors.white,
   appBarTheme: AppBarTheme(
     backgroundColor:Color.fromARGB(255, 11, 106, 14),
     foregroundColor: Colors.white,

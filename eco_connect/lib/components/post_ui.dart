@@ -75,8 +75,6 @@ class _PostUiState extends State<PostUi> {
 
   // show dialog box for adding a comment
   void showCommentDialog() {
-    print("))))))))))))))))");
-    print(_commentTextController.text);
     showDialog(
       context:context,
       builder: (context) =>

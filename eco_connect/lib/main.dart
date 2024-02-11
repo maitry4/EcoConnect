@@ -1,5 +1,6 @@
 import 'package:eco_connect/pages/auth_page.dart';
 import 'package:eco_connect/theme/light_theme.dart';
+// import 'package:eco_connect/theme/dark_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
@@ -19,6 +20,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme:lightTheme,
+      // darkTheme: darkTheme,
       debugShowCheckedModeBanner: false,
       home: AuthPage(),
     );
