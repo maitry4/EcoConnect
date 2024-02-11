@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eco_connect/components/comment.dart';
 import 'package:eco_connect/components/comment_button.dart';
+import 'package:eco_connect/components/delete_button.dart';
 import 'package:eco_connect/components/like_button.dart';
 import 'package:eco_connect/helper/helper_method.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -12,14 +13,16 @@ class PostUi extends StatefulWidget {
   final String postId;
   final String time;
   final List<String> likes;
+  int commentCount;
 
-  const PostUi({
+  PostUi({
     super.key, 
     required this.message,
     required this.user,
     required this.postId,
     required this.time,
     required this.likes,
+    required this.commentCount,
     });
 
   @override
@@ -29,6 +32,8 @@ class PostUi extends StatefulWidget {
 class _PostUiState extends State<PostUi> {
   final currentUser = FirebaseAuth.instance.currentUser!;
   bool isLiked = false;
+  // local count of the comments
+  
 
   // comment text controller
   final _commentTextController = TextEditingController();
@@ -71,6 +76,14 @@ class _PostUiState extends State<PostUi> {
       "CommentedBy":currentUser.email,
       "CommentTime":Timestamp.now(), //format this later
     });
+    // update the comment count
+    int new_count = widget.commentCount + 1;
+    FirebaseFirestore.instance.collection("User Posts").doc(widget.postId).update({'commentCount':new_count});
+
+    setState(() {
+      widget.commentCount = new_count;
+    });
+    
   }
 
   // show dialog box for adding a comment
@@ -111,8 +124,48 @@ class _PostUiState extends State<PostUi> {
             child: Text("Post")),
         ],
       ),);
-
   }
+
+  void deletePost() {
+    // show a dialog box to ask for confirmation
+    showDialog(
+      context: context, 
+      builder: (context) => AlertDialog(
+        title: const Text("Delete Post"),
+        content: const Text("Are you sure you want to delete?"),
+        actions: [
+          // CANCEL
+          TextButton(
+            onPressed: () => Navigator.pop(context), 
+            child: Text("Cancel")
+          ),
+
+          // DELETE
+          TextButton(
+            onPressed: () async{
+              // delete the comments
+              final commentDoc = await FirebaseFirestore.instance.collection("User Posts").doc(widget.postId).collection("Comments").get();
+
+              for (var doc in commentDoc.docs) {
+                await FirebaseFirestore.instance.collection("User Posts").doc(widget.postId).collection("Comments").doc(doc.id).delete();
+              }
+
+              // delete the post
+              FirebaseFirestore.instance
+              .collection("User Posts")
+              .doc(widget.postId)
+              .delete()
+              .then((value) => print("post deleted")).catchError((error) => print("Failed to delete"));
+
+              // dismis the dialog
+               Navigator.pop(context);
+            }, 
+            child: Text("Delete")
+          ),
+        ],
+      ));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -126,25 +179,39 @@ class _PostUiState extends State<PostUi> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // messages and user email
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // message
-              Text(widget.message),
-              const SizedBox(height: 5,),
-              // user
-               Row(
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(widget.user,
-                  style: TextStyle(color: Colors.grey[400]),),
-                  Text(' . ',
-                  style: TextStyle(color: Colors.grey[400]),),
-                  Text(widget.time,
-                  style: TextStyle(color: Colors.grey[400]),),
+                  // group of text {message + user details}
+                  // messages and user email
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // message
+                      Text(widget.message),
+                      const SizedBox(height: 5,),
+                      // user
+                       Row(
+                        children: [
+                          Text(widget.user,
+                          style: TextStyle(color: Colors.grey[400]),),
+                          Text(' . ',
+                          style: TextStyle(color: Colors.grey[400]),),
+                          Text(widget.time,
+                          style: TextStyle(color: Colors.grey[400]),),
+                        ],
+                      ),
+                  ],),
+
+                  SizedBox(width: 3,),
+
+                  // delete button
+                  if(widget.user == currentUser.email) 
+                  DeleteButton(onTap: deletePost,),
                 ],
               ),
-          ],),
+
 
           const SizedBox(height: 20,),
 
@@ -181,9 +248,8 @@ class _PostUiState extends State<PostUi> {
                   const SizedBox(height: 5),
               
                   // comment count
-                  // *****************YET TO IMPLEMENT****************
                   Text(
-                    "0",
+                    widget.commentCount.toString(),
                     style: TextStyle(color: Colors.grey),
                     ),
                 ],
@@ -212,7 +278,7 @@ class _PostUiState extends State<PostUi> {
                 children: snapshot.data!.docs.map((doc){
                   // get the comments
                   final commentData = doc.data() as Map<String, dynamic>;
-                  print(commentData["CommentText"]);
+                  // print(commentData["CommentText"]);
                   // return the comment
                   return Comment(
                     text: commentData["CommentText"],
@@ -223,6 +289,10 @@ class _PostUiState extends State<PostUi> {
               );
             },
             ),
+
+            
+              
+            
         ] 
       ),
     );

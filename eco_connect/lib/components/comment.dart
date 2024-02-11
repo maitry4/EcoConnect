@@ -29,17 +29,16 @@ class Comment extends StatelessWidget {
 
           SizedBox(height: 5,),
 
+          Text(user,
+            style: TextStyle(color: Colors.grey[400]),
+            overflow: TextOverflow.clip,
+            ),
           // user, time
-          Row(
-            children: [
-              Text(user,
-              style: TextStyle(color: Colors.grey[400]),),
-              Text(' . ',
-              style: TextStyle(color: Colors.grey[400]),),
-              Text(time,
-              style: TextStyle(color: Colors.grey[400]),),
-            ],
-          ),
+          Text(time,
+            style: TextStyle(color: Colors.grey[400]),
+            overflow: TextOverflow.clip,
+            ),
+
         ],
       ),
     );

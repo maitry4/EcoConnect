@@ -12,7 +12,7 @@ class DeleteButton extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Icon(
-        Icons.cancel_sharp,
+        Icons.delete,
         color: Theme.of(context).appBarTheme.backgroundColor,
         ),
     );

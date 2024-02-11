@@ -32,6 +32,7 @@ class _HomePageState extends State<HomePage> {
         'Message': textController.text,
         'TimeStamp': Timestamp.now(),
         'Likes':[],
+        'commentCount':0,
       });
     }
 
@@ -111,6 +112,7 @@ class _HomePageState extends State<HomePage> {
                         postId: post.id,
                         time: formatDate(post['TimeStamp']),
                         likes:List<String>.from(post['Likes'] ?? []),
+                        commentCount: post['commentCount'],
                         );
                     },
                    );
