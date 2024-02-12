@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eco_connect/services/auth_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -5,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:eco_connect/components/my_button.dart';
 import 'package:eco_connect/components/my_textfield.dart';
 import 'package:eco_connect/components/square_tile.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class RegisterPage extends StatefulWidget {
   final Function()? onTap;
@@ -33,11 +35,23 @@ class _RegisterPageState extends State<RegisterPage> {
       final passLen = passwordController.text.length;
       if(passwordController.text == confirmpasswordController.text && passLen>=6)
       {   
-            await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          // create a user
+            UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
             email: emailController.text, 
             password: passwordController.text
           );
-          Navigator.pop(context);
+
+          // after that create a new document in cloud firebase called Users
+          await FirebaseFirestore.instance
+          .collection('Users')
+          .doc(userCredential.user!.email)
+          .set({
+            'username': emailController.text.split('@')[0],
+            'bio': 'empty bio',
+            'isExpert':false,
+            'isIndustry':false,
+          });
+          if(context.mounted) Navigator.pop(context);
           
       }
       else {
@@ -69,7 +83,7 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[300],
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: SafeArea(
         child: Center(
           child: ListView(
@@ -77,10 +91,9 @@ class _RegisterPageState extends State<RegisterPage> {
               const SizedBox(height: 25),
 
               // logo
-              const Icon(
-                Icons.landscape,
-                size: 100,
-                color: Color.fromARGB(255, 11, 106, 14),
+              SvgPicture.asset(
+                'lib/images/main_icon.svg',
+                height: 64,
               ),
 
               const SizedBox(height: 25),

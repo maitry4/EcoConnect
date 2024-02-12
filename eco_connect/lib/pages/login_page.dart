@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:eco_connect/components/my_button.dart';
 import 'package:eco_connect/components/my_textfield.dart';
 import 'package:eco_connect/components/square_tile.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class LoginPage extends StatefulWidget {
   final Function()? onTap;
@@ -21,40 +23,44 @@ class _LoginPageState extends State<LoginPage> {
 
   final passwordController = TextEditingController();
 
+  void invalidCredential(BuildContext context) {
+    showDialog(context: context, builder: (context) {
+      return AlertDialog(title: Text("Invalid Email or Password"));
+    });
+  }
   // sign user in method
   void signUserIn() async {
     // show loading circle
-    showDialog(context: context, builder: (context) {
-      return const Center(child: CircularProgressIndicator(),
-      );
-    });
+    // showDialog(context: context, builder: (context) {
+    //   return const Center(child: CircularProgressIndicator(),
+    //   );
+    // });
     // try sign in
     try {
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
+      final res = await FirebaseAuth.instance.signInWithEmailAndPassword(
       email: emailController.text, 
       password: passwordController.text
       );
-      Navigator.pop(context);
+      print(res);
     } on FirebaseAuthException catch (e) {
       print(e.code);
-      if(e.code=='invalid-credential'){
-        invalidCredential();
-        Navigator.pop(context);
+      print("****************Incorrect Email or Password");
+        invalidCredential(context);
+        // Navigator.pop(context);
         
-      }
+      } on PlatformException catch (e) {
+      // Handle platform-specific exceptions
+      print("****************An error occurred. Please check your credentials and try again.");
+      invalidCredential(context);
+      // Navigator.pop(context);
     }
 
-  }
-  void invalidCredential() {
-    showDialog(context: context, builder: (context) {
-      return AlertDialog(title: Text("Incorrect Email or Password"));
-    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[300],
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: SafeArea(
         child: Center(
           child: ListView(
@@ -62,10 +68,15 @@ class _LoginPageState extends State<LoginPage> {
               const SizedBox(height: 50),
 
               // logo
-              const Icon(
+              /*const Icon(
                 Icons.landscape,
                 size: 100,
                 color: Color.fromARGB(255, 11, 106, 14),
+              ),*/
+              // svg
+              SvgPicture.asset(
+                'lib/images/main_icon.svg',
+                height: 64,
               ),
 
               const SizedBox(height: 50),
