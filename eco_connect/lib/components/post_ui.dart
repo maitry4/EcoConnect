@@ -170,6 +170,10 @@ class _PostUiState extends State<PostUi> {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
+        border: Border.all(
+          width: 2,
+          color: const Color(0xFF76DEAD),
+        ),
         color:Colors.white,
         borderRadius: BorderRadius.circular(8),
       ),
@@ -204,7 +208,7 @@ class _PostUiState extends State<PostUi> {
                       ),
                   ],),
 
-                  SizedBox(width: 3,),
+                  // SizedBox(width: 3,),
 
                   // delete button
                   if(widget.user == currentUser.email) 

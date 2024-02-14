@@ -1,13 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:eco_connect/components/drawer.dart';
 import 'package:eco_connect/components/my_textfield.dart';
 import 'package:eco_connect/components/post_ui.dart';
 import 'package:eco_connect/components/text_box.dart';
 import 'package:eco_connect/components/my_button.dart';
 import 'package:eco_connect/components/user_post_card.dart';
 import 'package:eco_connect/helper/helper_method.dart';
+import 'package:eco_connect/pages/home_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -23,6 +24,34 @@ class _ProfilePageState extends State<ProfilePage> {
 
   // all users
   final usersCollection = FirebaseFirestore.instance.collection("Users");
+  void signUserOut() {
+    FirebaseAuth.instance.signOut();
+  }
+
+  // open profile page
+  void goToProfilePage() {
+    // pop the menu drawer
+    Navigator.pop(context);
+
+    // go to the profile page
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const ProfilePage(),
+      ),
+    );
+  }
+  // open home page
+  void goToHomePage() {
+    // pop the menu drawer
+    Navigator.pop(context);
+
+    // go to the home page
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => HomePage(),
+      ),
+    );
+  }
 
   // edit field
   Future<void> editField(String field) async {
@@ -78,10 +107,12 @@ class _ProfilePageState extends State<ProfilePage> {
       await launchUrl(url);
     }
   }
+  
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
         backgroundColor: Theme.of(context).appBarTheme.backgroundColor,

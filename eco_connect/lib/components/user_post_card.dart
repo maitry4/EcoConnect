@@ -6,7 +6,7 @@ import 'package:eco_connect/components/like_button.dart';
 import 'package:eco_connect/helper/helper_method.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
+// for the profile page my posts section
 class UserPost extends StatefulWidget {
   final String message;
   final String user;
@@ -170,6 +170,10 @@ class _UserPostState extends State<UserPost> {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
+        border: Border.all(
+          width: 2,
+          color: const Color(0xFF76DEAD),
+        ),
         color:Colors.white,
         borderRadius: BorderRadius.circular(8),
       ),
@@ -204,7 +208,7 @@ class _UserPostState extends State<UserPost> {
                       ),
                   ],),
 
-                  SizedBox(width: 3,),
+                  // SizedBox(width: 3,),
 
                   // delete button
                   if(widget.user == currentUser.email) 

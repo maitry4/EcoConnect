@@ -21,10 +21,10 @@ class MyTextField extends StatelessWidget {
         obscureText: obscureText,
         decoration: InputDecoration(
             enabledBorder: const OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.green),
+              borderSide: BorderSide(color: const Color(0xFF76DEAD),),
             ),
             focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.green),
+              borderSide: BorderSide(color: const Color(0xFF76DEAD),),
             ),
             fillColor: Colors.white,
             filled: true,

@@ -6,6 +6,7 @@ import 'package:eco_connect/helper/helper_method.dart';
 import 'package:eco_connect/pages/profile_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_nav_bar/google_nav_bar.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({super.key});
@@ -41,7 +42,18 @@ class _HomePageState extends State<HomePage> {
       textController.clear();
     });
   }
+  // open home page
+  void goToHomePage() {
+    // pop the menu drawer
+    Navigator.pop(context);
 
+    // go to the home page
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => HomePage(),
+      ),
+    );
+  }
   // open profile page
   void goToProfilePage() {
     // pop the menu drawer
@@ -55,21 +67,85 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  int currentIndex = 0;
+  void goToPage(index) {
+    setState(() {
+      currentIndex = index;
+    });
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => _pages[index],
+      ),
+    );
+  }
+
+  List _pages = [
+    // home page
+    HomePage(),
+
+    // profile page
+    ProfilePage(),
+  ];
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
         backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
+        actions: [IconButton(onPressed: signUserOut, icon: Icon(Icons.logout))],
           ),
-      drawer: MyDrawer(
-        onProfileTap: goToProfilePage,
-        onSignOut: signUserOut,
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.symmetric(horizontal:15.0, vertical:20.0),
+        child: GNav(
+            gap: 8,
+                color:  Color(0xFF76DEAD),
+                activeColor: Colors.white,
+                tabBackgroundColor: Color(0xFF76DEAD),
+                padding:EdgeInsets.all(8),
+                onTabChange: (index) => goToPage(index),
+                tabs:const [
+                  GButton(
+                    icon: Icons.home,
+                    text:"Home",
+                  ),
+                  GButton(
+                    icon: Icons.person,
+                    text:"Profile",
+                  ),
+                  
+                ]
+          ),
       ),
+      // drawer: MyDrawer(
+      //   onProfileTap: goToProfilePage,
+      //   onSignOut: signUserOut,
+      // ),
       body: Center(
         child: Column(
           children: [
             
+            // post message
+            Padding(
+              padding: const EdgeInsets.all(25.0),
+              child: Row(
+                children: [
+                  Expanded(
+                    // text field
+                    child: MyTextField(
+                      controller: textController,
+                      hintText: 'Inspire People with What\'s on Your Mind...',
+                      obscureText: false,
+                    ),
+                  ),
+              
+                  // post message button
+                  IconButton(onPressed: postMessage,
+                  icon: Icon(Icons.rocket, color:Theme.of(context).appBarTheme.backgroundColor))
+                ]
+              ),
+            ),
 
             // eco connect
             Expanded(
@@ -106,26 +182,7 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
             
-            // post message
-            Padding(
-              padding: const EdgeInsets.all(25.0),
-              child: Row(
-                children: [
-                  Expanded(
-                    // text field
-                    child: MyTextField(
-                      controller: textController,
-                      hintText: 'Inspire People with What\'s on Your Mind...',
-                      obscureText: false,
-                    ),
-                  ),
-              
-                  // post message button
-                  IconButton(onPressed: postMessage,
-                  icon: Icon(Icons.rocket, color:Theme.of(context).appBarTheme.backgroundColor))
-                ]
-              ),
-            ),
+            
             
             // // logged in as
             // Text("Logged In as: "+currentUser.email!, style: TextStyle(color: Colors.grey),),

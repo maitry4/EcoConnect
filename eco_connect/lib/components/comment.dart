@@ -17,6 +17,10 @@ class Comment extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         // color: Colors.black[1,
+        border: Border.all(
+          width: 1,
+          color: const Color(0xFF76DEAD),
+        ),
         borderRadius: BorderRadius.circular(4),
       ),
       margin: const EdgeInsets.only(bottom: 5),

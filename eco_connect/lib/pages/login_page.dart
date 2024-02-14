@@ -209,7 +209,7 @@ class _LoginPageState extends State<LoginPage> {
                     child: const Text(
                       'Register now',
                       style: TextStyle(
-                        color: Colors.green,
+                        color: const Color(0xFF76DEAD),
                         fontWeight: FontWeight.bold,
                       ),
                     ),
