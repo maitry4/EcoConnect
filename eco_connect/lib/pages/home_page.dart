@@ -69,26 +69,7 @@ class _HomePageState extends State<HomePage> {
       body: Center(
         child: Column(
           children: [
-            // post message
-            Padding(
-              padding: const EdgeInsets.all(25.0),
-              child: Row(
-                children: [
-                  Expanded(
-                    // text field
-                    child: MyTextField(
-                      controller: textController,
-                      hintText: 'Inspire People with What\'s on Your Mind...',
-                      obscureText: false,
-                    ),
-                  ),
-              
-                  // post message button
-                  IconButton(onPressed: postMessage,
-                  icon: Icon(Icons.rocket, color:Theme.of(context).appBarTheme.backgroundColor))
-                ]
-              ),
-            ),
+            
 
             // eco connect
             Expanded(
@@ -125,9 +106,29 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
             
-
-            // logged in as
-            Text("Logged In as: "+currentUser.email!, style: TextStyle(color: Colors.grey),),
+            // post message
+            Padding(
+              padding: const EdgeInsets.all(25.0),
+              child: Row(
+                children: [
+                  Expanded(
+                    // text field
+                    child: MyTextField(
+                      controller: textController,
+                      hintText: 'Inspire People with What\'s on Your Mind...',
+                      obscureText: false,
+                    ),
+                  ),
+              
+                  // post message button
+                  IconButton(onPressed: postMessage,
+                  icon: Icon(Icons.rocket, color:Theme.of(context).appBarTheme.backgroundColor))
+                ]
+              ),
+            ),
+            
+            // // logged in as
+            // Text("Logged In as: "+currentUser.email!, style: TextStyle(color: Colors.grey),),
 
             const SizedBox(height: 20,),
           ],
