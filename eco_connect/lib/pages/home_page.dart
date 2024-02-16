@@ -99,6 +99,7 @@ class _HomePageState extends State<HomePage> {
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.symmetric(horizontal:15.0, vertical:20.0),
         child: GNav(
+          backgroundColor: Colors.white,
             gap: 8,
                 color:  Color(0xFF76DEAD),
                 activeColor: Colors.white,
@@ -112,7 +113,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                   GButton(
                     icon: Icons.person,
-                    text:"Profile2",
+                    text:"Profile",
                   ),
                  
                   
@@ -127,26 +128,7 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           children: [
             
-            // post message
-            Padding(
-              padding: const EdgeInsets.all(25.0),
-              child: Row(
-                children: [
-                  Expanded(
-                    // text field
-                    child: MyTextField(
-                      controller: textController,
-                      hintText: 'Inspire People with What\'s on Your Mind...',
-                      obscureText: false,
-                    ),
-                  ),
-              
-                  // post message button
-                  IconButton(onPressed: postMessage,
-                  icon: Icon(Icons.rocket, color:Theme.of(context).appBarTheme.backgroundColor))
-                ]
-              ),
-            ),
+            
 
             // eco connect
             Expanded(
@@ -155,7 +137,7 @@ class _HomePageState extends State<HomePage> {
                 .collection("User Posts")
                 .orderBy(
                   "TimeStamp",
-                  descending: false)
+                  descending: true)
                 .snapshots(),
                 builder: (context, snapshot) {
                   if(snapshot.hasData) {
@@ -183,7 +165,26 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
             
-            
+            // post message
+            Padding(
+              padding: const EdgeInsets.only(top:25.0,left:25.0, right:25.0),
+              child: Row(
+                children: [
+                  Expanded(
+                    // text field
+                    child: MyTextField(
+                      controller: textController,
+                      hintText: 'Inspire People with What\'s on Your Mind...',
+                      obscureText: false,
+                    ),
+                  ),
+              
+                  // post message button
+                  IconButton(onPressed: postMessage,
+                  icon: Icon(Icons.rocket, color:Theme.of(context).appBarTheme.backgroundColor, size: 35,))
+                ]
+              ),
+            ),
             
             // // logged in as
             // Text("Logged In as: "+currentUser.email!, style: TextStyle(color: Colors.grey),),

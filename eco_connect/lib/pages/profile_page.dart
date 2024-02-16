@@ -21,6 +21,7 @@ class _ProfilePageState extends State<ProfilePage> {
   final currentUser = FirebaseAuth.instance.currentUser!;
   final usersCollection = FirebaseFirestore.instance.collection("Users");
   late bool isFollowing;
+  late bool isexp;
   bool isLoading = false;
 
   @override
@@ -43,6 +44,21 @@ class _ProfilePageState extends State<ProfilePage> {
     });
     print("**********");
     print(isFollowing);
+    // getting if the visiting user is expert or industry
+    // HERE I WANT TO GET THE VISITING USER'S (CURRENT USER'S ISEXPERT AND ISINDUSTRY VALUE)
+    // HERE'S HOW I GET THE CURRENT USER VALUE:
+    // CURRENT_USER_EMAIL = FirebaseAuth.instance.currentUser!.email
+    DocumentSnapshot<Map<String, dynamic>> snapexp = await FirebaseFirestore.instance
+          .collection('Users')
+          .doc(FirebaseAuth.instance.currentUser!.email)
+          .get();
+    bool temp = await (snapexp.data()! as dynamic)['isExpert'];;
+    setState(()  {
+      isexp =  temp;
+    });
+    print(isexp);
+
+
   }
 
 
@@ -228,6 +244,9 @@ class _ProfilePageState extends State<ProfilePage> {
                                             icon: Icon(Icons.edit,
                                                 color: Colors.grey[600],
                                                 size: 20)),
+
+                                    if(userData['isIndustry'] && isexp)
+                                    MyButton(onTap: (){}, text: 'apply')
                                     ],
                                   ),
                                   // bio
@@ -287,6 +306,9 @@ class _ProfilePageState extends State<ProfilePage> {
                                   FirebaseAuth.instance.currentUser!.email,
                                   widget.username);
                               setState(() {
+                                
+                                print(widget.username);
+                                print(userData['username']);
                                 // print(isFollowing);
                                 // print(FirebaseAuth.instance.currentUser!.email);
                                 // print(widget.username);
@@ -321,7 +343,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   Padding(
                     padding: const EdgeInsets.only(top: 30.0, left: 30.0),
                     child: Text(
-                      'My Posts',
+                      'Posts',
                       style: TextStyle(
                           color: Colors.grey[600],
                           fontSize: 20,
