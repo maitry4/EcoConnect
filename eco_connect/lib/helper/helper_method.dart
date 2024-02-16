@@ -1,5 +1,6 @@
 // reutrn a formatted date as a string
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 String formatDate(Timestamp timestamp){
   // Timestamp is the object we retrieve from firebase

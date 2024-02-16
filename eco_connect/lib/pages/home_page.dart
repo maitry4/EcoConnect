@@ -4,6 +4,7 @@ import 'package:eco_connect/components/my_textfield.dart';
 import 'package:eco_connect/components/post_ui.dart';
 import 'package:eco_connect/helper/helper_method.dart';
 import 'package:eco_connect/pages/profile_page.dart';
+import 'package:eco_connect/pages/profile_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
@@ -43,29 +44,29 @@ class _HomePageState extends State<HomePage> {
     });
   }
   // open home page
-  void goToHomePage() {
-    // pop the menu drawer
-    Navigator.pop(context);
+  // void goToHomePage() {
+  //   // pop the menu drawer
+  //   Navigator.pop(context);
 
-    // go to the home page
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => HomePage(),
-      ),
-    );
-  }
+  //   // go to the home page
+  //   Navigator.push(
+  //     context,
+  //     MaterialPageRoute(builder: (context) => HomePage(),
+  //     ),
+  //   );
+  // }
   // open profile page
-  void goToProfilePage() {
-    // pop the menu drawer
-    Navigator.pop(context);
+  // void goToProfilePage() {
+  //   // pop the menu drawer
+  //   Navigator.pop(context);
 
-    // go to the profile page
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => const ProfilePage(),
-      ),
-    );
-  }
+  //   // go to the profile page
+  //   Navigator.push(
+  //     context,
+  //     MaterialPageRoute(builder: (context) => ProfilePage(username: FirebaseAuth.instance.currentUser != null ? FirebaseAuth.instance.currentUser!.email : 'something'),
+  //     ),
+  //   );
+  // }
 
   int currentIndex = 0;
   void goToPage(index) {
@@ -78,13 +79,12 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
-
-  List _pages = [
+  final username = FirebaseAuth.instance.currentUser != null ? FirebaseAuth.instance.currentUser!.email : 'something';
+  final List _pages = [
     // home page
     HomePage(),
-
-    // profile page
-    ProfilePage(),
+    // profile 2
+    ProfilePage(username: FirebaseAuth.instance.currentUser != null ? FirebaseAuth.instance.currentUser!.email : 'something'),
   ];
 
 
@@ -112,8 +112,9 @@ class _HomePageState extends State<HomePage> {
                   ),
                   GButton(
                     icon: Icons.person,
-                    text:"Profile",
+                    text:"Profile2",
                   ),
+                 
                   
                 ]
           ),

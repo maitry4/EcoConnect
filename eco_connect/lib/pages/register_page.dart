@@ -50,6 +50,8 @@ class _RegisterPageState extends State<RegisterPage> {
             'bio': 'empty bio',
             'isExpert':false,
             'isIndustry':false,
+            'followers':[],
+            'following':[],
           });
           if(context.mounted) Navigator.pop(context);
           
@@ -64,6 +66,15 @@ class _RegisterPageState extends State<RegisterPage> {
         invalidCredential(e.code);
         Navigator.pop(context);
         
+      }
+      else if(e.code=='auth/email-already-in-use'){
+        invalidCredential(e.code);
+        Navigator.pop(context);
+        
+      }
+      else{
+        invalidCredential(e.code);
+        Navigator.pop(context);
       }
     }
 
@@ -178,7 +189,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
               const SizedBox(height: 50),
 
-              // google + apple sign in buttons
+              // google sign in buttons
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [

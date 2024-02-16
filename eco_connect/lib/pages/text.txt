@@ -1,0 +1,55 @@
+ListView(
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left:40),
+                    child: Row(
+                      children: [
+                        // profile pic
+                      Icon(
+                        Icons.person,
+                        size: 62,
+                        color: Theme.of(context).appBarTheme.backgroundColor,
+                      ),
+        
+                        SizedBox(width: 20), // Adjust as needed
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              currentUser.email!, // Set dynamic username here
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            Text(
+                              'Dynamic Bio', // Set dynamic bio here
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: 20), // Adjust as needed
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      buildStatColumn(20, "posts"),
+                      buildStatColumn(10, "followers"),
+                      buildStatColumn(10, "following"),
+                    ],
+                  ),
+                  SizedBox(height: 20), // Adjust as needed
+                  MyButton(
+                    text: "Edit Profile",
+                    onTap: () {},
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
