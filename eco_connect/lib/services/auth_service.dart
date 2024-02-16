@@ -26,6 +26,21 @@ class AuthService{
     // Access user's email
     final String? email = userCredential.user?.email;
     // print('User Email: $email');
+
+    // try to get existing data
+    try {
+      final existingDoc =
+          await FirebaseFirestore.instance.collection('Users').doc(email).get();
+
+      // If the document already exists, return
+      if (existingDoc.exists) {
+        return;
+      }
+    } catch (e) {
+      // Handle any potential errors
+      print('Error while checking for existing document: $e');
+    }
+
     // after that create a new document in cloud firebase called Users
     await FirebaseFirestore.instance
     .collection('Users')

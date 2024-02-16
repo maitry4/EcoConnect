@@ -20,7 +20,7 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   final currentUser = FirebaseAuth.instance.currentUser!;
   final usersCollection = FirebaseFirestore.instance.collection("Users");
-  bool isFollowing = false;
+  late bool isFollowing;
   bool isLoading = false;
 
   @override
@@ -41,6 +41,8 @@ class _ProfilePageState extends State<ProfilePage> {
     setState(() {
       isLoading = false;
     });
+    print("**********");
+    print(isFollowing);
   }
 
 
@@ -124,6 +126,10 @@ class _ProfilePageState extends State<ProfilePage> {
           'following': FieldValue.arrayRemove([followId])
         });
         setState(() {
+          print(isFollowing);
+          print(FirebaseAuth.instance.currentUser!.email);
+          print(widget.username);
+          print("Setting isFollowing to false");
           isFollowing = false;
         });
       } else {
@@ -141,6 +147,10 @@ class _ProfilePageState extends State<ProfilePage> {
           'following': FieldValue.arrayUnion([followId])
         });
         setState(() {
+          print(isFollowing);
+          print(FirebaseAuth.instance.currentUser!.email);
+          print(widget.username);
+          print("Setting isFollowing to true");
           isFollowing = true;
         });
       }
@@ -276,11 +286,13 @@ class _ProfilePageState extends State<ProfilePage> {
                               await followaUser(
                                   FirebaseAuth.instance.currentUser!.email,
                                   widget.username);
-                              // setState(() {
-                              //   print("Setting isFollowing to false");
-                              //   isFollowing:
-                              //   false;
-                              // });
+                              setState(() {
+                                // print(isFollowing);
+                                // print(FirebaseAuth.instance.currentUser!.email);
+                                // print(widget.username);
+                                // print("Setting isFollowing to false");
+                                isFollowing=false;
+                              });
                             },
                           )
                         else
@@ -290,11 +302,13 @@ class _ProfilePageState extends State<ProfilePage> {
                               await followaUser(
                                   FirebaseAuth.instance.currentUser!.email,
                                   widget.username);
-                              // setState(() {
-                              //   print("Setting isFollowing to true");
-                              //   isFollowing:
-                              //   true;
-                              // });
+                              setState(() {
+                                // print(isFollowing);
+                                // print(FirebaseAuth.instance.currentUser!.email);
+                                // print(widget.username);
+                                // print("Setting isFollowing to true");
+                                isFollowing=true;
+                              });
                             },
                           ),
                       ],
