@@ -1,16 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:eco_connect/components/drawer.dart';
 import 'package:eco_connect/components/my_textfield.dart';
 import 'package:eco_connect/components/post_ui.dart';
 import 'package:eco_connect/helper/helper_method.dart';
-import 'package:eco_connect/pages/profile_page.dart';
 import 'package:eco_connect/pages/profile_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 
 class HomePage extends StatefulWidget {
-  HomePage({super.key});
+  const HomePage({super.key});
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -82,7 +80,7 @@ class _HomePageState extends State<HomePage> {
   final username = FirebaseAuth.instance.currentUser != null ? FirebaseAuth.instance.currentUser!.email : 'something';
   final List _pages = [
     // home page
-    HomePage(),
+    const HomePage(),
     // profile 2
     ProfilePage(username: FirebaseAuth.instance.currentUser != null ? FirebaseAuth.instance.currentUser!.email : 'something'),
   ];
@@ -94,17 +92,17 @@ class _HomePageState extends State<HomePage> {
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
         backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
-        actions: [IconButton(onPressed: signUserOut, icon: Icon(Icons.logout))],
+        actions: [IconButton(onPressed: signUserOut, icon: const Icon(Icons.logout))],
           ),
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.symmetric(horizontal:15.0, vertical:20.0),
         child: GNav(
           backgroundColor: Colors.white,
             gap: 8,
-                color:  Color(0xFF76DEAD),
+                color:  const Color(0xFF76DEAD),
                 activeColor: Colors.white,
-                tabBackgroundColor: Color(0xFF76DEAD),
-                padding:EdgeInsets.all(8),
+                tabBackgroundColor: const Color(0xFF76DEAD),
+                padding:const EdgeInsets.all(8),
                 onTabChange: (index) => goToPage(index),
                 tabs:const [
                   GButton(

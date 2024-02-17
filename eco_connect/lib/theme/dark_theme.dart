@@ -8,7 +8,7 @@ const secondaryColor = Colors.grey;
 
 ThemeData darkTheme = ThemeData.dark().copyWith(
   scaffoldBackgroundColor:Colors.white,
-  appBarTheme: AppBarTheme(
+  appBarTheme: const AppBarTheme(
     backgroundColor:Color.fromARGB(255, 11, 106, 14),
     foregroundColor: Colors.white,
   ),

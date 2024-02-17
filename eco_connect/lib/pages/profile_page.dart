@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eco_connect/components/follow_button.dart';
 import 'package:eco_connect/components/my_button.dart';
 import 'package:eco_connect/components/post_ui.dart';
-import 'package:eco_connect/components/text_box.dart';
 import 'package:eco_connect/helper/helper_method.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
@@ -11,7 +10,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 class ProfilePage extends StatefulWidget {
   final String? username;
-  const ProfilePage({Key? key, required this.username}) : super(key: key);
+  const ProfilePage({super.key, required this.username});
 
   @override
   State<ProfilePage> createState() => _ProfilePageState();
@@ -53,8 +52,8 @@ class _ProfilePageState extends State<ProfilePage> {
           .collection('Users')
           .doc(FirebaseAuth.instance.currentUser!.email)
           .get();
-    bool temp = await (snapexp.data()! as dynamic)['isExpert'];;
-    bool temp2 = await (snapexp.data()! as dynamic)['isIndustry'];;
+    bool temp = await (snapexp.data()! as dynamic)['isExpert'];
+    bool temp2 = await (snapexp.data()! as dynamic)['isIndustry'];
     setState(()  {
       isexp =  temp;
     });
@@ -74,19 +73,19 @@ class _ProfilePageState extends State<ProfilePage> {
       builder: (context) => AlertDialog(
         backgroundColor: Colors.white,
         title: Text(
-          "Edit " + field,
-          style: TextStyle(
+          "Edit $field",
+          style: const TextStyle(
             color: Colors.black,
           ),
         ),
         content: TextField(
           autofocus: true,
-          style: TextStyle(
+          style: const TextStyle(
             color: Colors.black,
           ),
           decoration: InputDecoration(
             hintText: "Enter new $field",
-            hintStyle: TextStyle(color: Colors.grey),
+            hintStyle: const TextStyle(color: Colors.grey),
           ),
           onChanged: (value) {
             newValue = value;
@@ -94,7 +93,7 @@ class _ProfilePageState extends State<ProfilePage> {
         ),
         actions: [
           TextButton(
-            child: Text(
+            child: const Text(
               "Cancel",
               style: TextStyle(
                 color: Colors.black,
@@ -103,7 +102,7 @@ class _ProfilePageState extends State<ProfilePage> {
             onPressed: () => Navigator.pop(context),
           ),
           TextButton(
-            child: Text(
+            child: const Text(
               "Save",
               style: TextStyle(
                 color: Colors.black,
@@ -115,7 +114,7 @@ class _ProfilePageState extends State<ProfilePage> {
       ),
     );
 
-    if (newValue.trim().length > 0) {
+    if (newValue.trim().isNotEmpty) {
       await usersCollection.doc(currentUser.email).update({field: newValue});
     }
   }
@@ -246,7 +245,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                     .backgroundColor,
                               ),
 
-                              SizedBox(width: 20),
+                              const SizedBox(width: 20),
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
@@ -256,7 +255,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                       // username
                                       Text(
                                         userData['username'],
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                           fontWeight: FontWeight.bold,
                                         ),
                                       ),
@@ -302,7 +301,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             ],
                           ),
                         ),
-                        SizedBox(height: 20),
+                        const SizedBox(height: 20),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
@@ -312,7 +311,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 userData['following'].length, "following"),
                           ],
                         ),
-                        SizedBox(height: 20),
+                        const SizedBox(height: 20),
                         if (widget.username == currentUser.email)
                           Padding(
                             padding: const EdgeInsets.only(left: 39.0),
@@ -328,7 +327,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 MyButton(
                                   text: "Industry",
                                   onTap: () => _launchURL(
-                                      Uri.parse('https://google.com')),
+                                      Uri.parse('https://docs.google.com/forms/d/e/1FAIpQLSeYBSP5RzRHtDlv8b7S6M7plk9YuztnBW0ST35Yj2Nl78hY6w/viewform?usp=sf_link')),
                                 )
                               ],
                             ),
@@ -395,7 +394,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       if (snapshot.hasData) {
                         return ListView.builder(
                           shrinkWrap: true,
-                          physics: NeverScrollableScrollPhysics(),
+                          physics: const NeverScrollableScrollPhysics(),
                           itemCount: snapshot.data!.docs.length,
                           itemBuilder: (context, index) {
                             // get message
@@ -413,10 +412,10 @@ class _ProfilePageState extends State<ProfilePage> {
                       } else if (snapshot.hasError) {
                         return Center(child: Text('Error${snapshot.error}'));
                       }
-                      return Center(child: CircularProgressIndicator());
+                      return const Center(child: CircularProgressIndicator());
                     },
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 30,
                   ),
                 ],
@@ -424,7 +423,7 @@ class _ProfilePageState extends State<ProfilePage> {
             } else if (snapshot.hasError) {
               return Center(child: Text('Error${snapshot.error}'));
             }
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(),
             );
           },

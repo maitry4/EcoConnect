@@ -21,7 +21,7 @@ class MyDrawer extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               // Header
-              DrawerHeader(
+              const DrawerHeader(
                 child: Icon(Icons.person,
                 color:Colors.white,
                 size: 64,

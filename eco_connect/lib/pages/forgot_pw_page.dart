@@ -27,7 +27,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
         showDialog(
           context: context,
           builder: (context) {
-            return AlertDialog(
+            return const AlertDialog(
               content: Text("Email address not found. Please check the email and try again."),
             );
           },
@@ -42,7 +42,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
     await showDialog(
         context: context,
         builder: (context) {
-          return AlertDialog(
+          return const AlertDialog(
             content: Text("Password Reset Link Sent. Check Your Mail!!"),
           );
         },
@@ -63,7 +63,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(backgroundColor:Color.fromARGB(255, 11, 106, 14),foregroundColor: Colors.white,),
+      appBar: AppBar(backgroundColor:const Color.fromARGB(255, 11, 106, 14),foregroundColor: Colors.white,),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [

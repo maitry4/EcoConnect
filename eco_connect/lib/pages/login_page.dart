@@ -1,7 +1,6 @@
 import 'package:eco_connect/pages/forgot_pw_page.dart';
 import 'package:eco_connect/services/auth_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:eco_connect/components/my_button.dart';
 import 'package:eco_connect/components/my_textfield.dart';
@@ -11,7 +10,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 class LoginPage extends StatefulWidget {
   final Function()? onTap;
-  LoginPage({super.key, required this.onTap});
+  const LoginPage({super.key, required this.onTap});
 
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -25,7 +24,7 @@ class _LoginPageState extends State<LoginPage> {
 
   void invalidCredential(BuildContext context) {
     showDialog(context: context, builder: (context) {
-      return AlertDialog(title: Text("Invalid Email or Password"));
+      return const AlertDialog(title: Text("Invalid Email or Password"));
     });
   }
   // sign user in method
@@ -48,7 +47,7 @@ class _LoginPageState extends State<LoginPage> {
         invalidCredential(context);
         // Navigator.pop(context);
         
-      } on PlatformException catch (e) {
+      } on PlatformException {
       // Handle platform-specific exceptions
       print("****************An error occurred. Please check your credentials and try again.");
       invalidCredential(context);
@@ -122,7 +121,7 @@ class _LoginPageState extends State<LoginPage> {
                       onTap:() {
                         Navigator.push(context, 
                         MaterialPageRoute(builder: (context){
-                          return ForgotPasswordPage();
+                          return const ForgotPasswordPage();
                           },
                         ),
                       );
@@ -186,7 +185,7 @@ class _LoginPageState extends State<LoginPage> {
                     imagePath: 'lib/images/google.png'
                     ),
 
-                  SizedBox(width: 25),
+                  const SizedBox(width: 25),
 
                   // apple button
                   // SquareTile(imagePath: 'lib/images/apple.png')
@@ -209,7 +208,7 @@ class _LoginPageState extends State<LoginPage> {
                     child: const Text(
                       'Register now',
                       style: TextStyle(
-                        color: const Color(0xFF76DEAD),
+                        color: Color(0xFF76DEAD),
                         fontWeight: FontWeight.bold,
                       ),
                     ),

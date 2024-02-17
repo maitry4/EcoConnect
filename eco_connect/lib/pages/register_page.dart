@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eco_connect/services/auth_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:eco_connect/components/my_button.dart';
 import 'package:eco_connect/components/my_textfield.dart';
@@ -10,7 +9,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 class RegisterPage extends StatefulWidget {
   final Function()? onTap;
-  RegisterPage({super.key, required this.onTap});
+  const RegisterPage({super.key, required this.onTap});
 
   @override
   State<RegisterPage> createState() => _RegisterPageState();
@@ -83,7 +82,7 @@ class _RegisterPageState extends State<RegisterPage> {
   void invalidCredential(error) {
     showDialog(context: context, builder: (context) {
       if(error=='invalid-credential'){
-        return AlertDialog(title: Text("Incorrect Email or Password"));
+        return const AlertDialog(title: Text("Incorrect Email or Password"));
       }
       else {
         return AlertDialog(title: Text(error));
@@ -199,7 +198,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     imagePath: 'lib/images/google.png'
                     ),
 
-                  SizedBox(width: 25),
+                  const SizedBox(width: 25),
 
                   // apple button
                   // SquareTile(imagePath: 'lib/images/apple.png')
@@ -222,7 +221,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     child: const Text(
                       'Login now',
                       style: TextStyle(
-                        color: const Color(0xFF76DEAD),
+                        color: Color(0xFF76DEAD),
                         fontWeight: FontWeight.bold,
                       ),
                     ),

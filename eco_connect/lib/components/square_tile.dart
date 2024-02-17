@@ -14,7 +14,7 @@ class SquareTile extends StatelessWidget {
     return GestureDetector(
       onTap:onTap,
       child: Container(
-        padding: EdgeInsets.all(25),
+        padding: const EdgeInsets.all(25),
         decoration: BoxDecoration(
           border: Border.all(color: const Color(0xFF76DEAD),),
           borderRadius: BorderRadius.circular(16),
@@ -26,8 +26,8 @@ class SquareTile extends StatelessWidget {
               imagePath,
               height: 40,
             ),
-            SizedBox(width: 25,),
-            Text("Sign in with Google")
+            const SizedBox(width: 25,),
+            const Text("Sign in with Google")
           ],
         ),
       ),

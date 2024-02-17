@@ -25,14 +25,14 @@ class Comment extends StatelessWidget {
         borderRadius: BorderRadius.circular(4),
       ),
       margin: const EdgeInsets.only(bottom: 5),
-      padding: EdgeInsets.all(15),
+      padding: const EdgeInsets.all(15),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // comment
           Text(text),
 
-          SizedBox(height: 5,),
+          const SizedBox(height: 5,),
 
           GestureDetector(
             onTap:(){

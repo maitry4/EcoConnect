@@ -81,14 +81,14 @@ class _PostUiState extends State<PostUi> {
       "CommentTime": Timestamp.now(), //format this later
     });
     // update the comment count
-    int new_count = widget.commentCount + 1;
+    int newCount = widget.commentCount + 1;
     FirebaseFirestore.instance
         .collection("User Posts")
         .doc(widget.postId)
-        .update({'commentCount': new_count});
+        .update({'commentCount': newCount});
 
     setState(() {
-      widget.commentCount = new_count;
+      widget.commentCount = newCount;
     });
   }
 
@@ -98,11 +98,11 @@ class _PostUiState extends State<PostUi> {
       context: context,
       builder: (context) => AlertDialog(
         backgroundColor: Colors.white,
-        title: Text("Add Comment"),
+        title: const Text("Add Comment"),
         content: TextField(
           autocorrect: true,
           controller: _commentTextController,
-          decoration: InputDecoration(hintText: "Write a comment..."),
+          decoration: const InputDecoration(hintText: "Write a comment..."),
         ),
         actions: [
           // cancel button
@@ -114,7 +114,7 @@ class _PostUiState extends State<PostUi> {
                 // clear the controller
                 _commentTextController.clear();
               },
-              child: Text("Cancel", style:TextStyle(color:Colors.black))),
+              child: const Text("Cancel", style:TextStyle(color:Colors.black))),
           // save button
           TextButton(
               onPressed: () {
@@ -125,7 +125,7 @@ class _PostUiState extends State<PostUi> {
                 // pop the box
                 Navigator.pop(context);
               },
-              child: Text("Post", style:TextStyle(color:Colors.black))),
+              child: const Text("Post", style:TextStyle(color:Colors.black))),
         ],
       ),
     );
@@ -143,7 +143,7 @@ class _PostUiState extends State<PostUi> {
                 // CANCEL
                 TextButton(
                     onPressed: () => Navigator.pop(context),
-                    child: Text("Cancel", style:TextStyle(color:Colors.black))),
+                    child: const Text("Cancel", style:TextStyle(color:Colors.black))),
 
                 // DELETE
                 TextButton(
@@ -175,7 +175,7 @@ class _PostUiState extends State<PostUi> {
                       // dismis the dialog
                       Navigator.pop(context);
                     },
-                    child: Text("Delete", style:TextStyle(color:Colors.black))),
+                    child: const Text("Delete", style:TextStyle(color:Colors.black))),
               ],
             ));
   }
@@ -191,8 +191,8 @@ class _PostUiState extends State<PostUi> {
         color: Colors.white,
         borderRadius: BorderRadius.circular(8),
       ),
-      margin: EdgeInsets.only(top: 25, left: 25, right: 25),
-      padding: EdgeInsets.all(25),
+      margin: const EdgeInsets.only(top: 25, left: 25, right: 25),
+      padding: const EdgeInsets.all(25),
       // post ui
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         Row(
@@ -288,7 +288,7 @@ class _PostUiState extends State<PostUi> {
                 // like count
                 Text(
                   widget.likes.length.toString(),
-                  style: TextStyle(color: Colors.grey),
+                  style: const TextStyle(color: Colors.grey),
                 ),
               ],
             ),
@@ -306,7 +306,7 @@ class _PostUiState extends State<PostUi> {
                 // comment count
                 Text(
                   widget.commentCount.toString(),
-                  style: TextStyle(color: Colors.grey),
+                  style: const TextStyle(color: Colors.grey),
                 ),
               ],
             ),
