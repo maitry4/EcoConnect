@@ -22,6 +22,7 @@ class _ProfilePageState extends State<ProfilePage> {
   final usersCollection = FirebaseFirestore.instance.collection("Users");
   late bool isFollowing;
   late bool isexp;
+  late bool isind;
   bool isLoading = false;
 
   @override
@@ -53,8 +54,12 @@ class _ProfilePageState extends State<ProfilePage> {
           .doc(FirebaseAuth.instance.currentUser!.email)
           .get();
     bool temp = await (snapexp.data()! as dynamic)['isExpert'];;
+    bool temp2 = await (snapexp.data()! as dynamic)['isIndustry'];;
     setState(()  {
       isexp =  temp;
+    });
+    setState(()  {
+      isind =  temp2;
     });
     print(isexp);
 
@@ -216,6 +221,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           padding: const EdgeInsets.only(left: 40),
                           child: Row(
                             children: [
+                              if(!userData['isExpert'] && !userData['isIndustry'])
                               Icon(
                                 Icons.person,
                                 size: 62,
@@ -223,11 +229,29 @@ class _ProfilePageState extends State<ProfilePage> {
                                     .appBarTheme
                                     .backgroundColor,
                               ),
+                              if(userData['isIndustry'])
+                              Icon(
+                                Icons.factory,
+                                size: 62,
+                                color: Theme.of(context)
+                                    .appBarTheme
+                                    .backgroundColor,
+                              ),
+                              if(userData['isExpert'])
+                              Icon(
+                                Icons.badge,
+                                size: 62,
+                                color: Theme.of(context)
+                                    .appBarTheme
+                                    .backgroundColor,
+                              ),
+
                               SizedBox(width: 20),
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Row(
+                                    
                                     children: [
                                       // username
                                       Text(
@@ -244,9 +268,18 @@ class _ProfilePageState extends State<ProfilePage> {
                                             icon: Icon(Icons.edit,
                                                 color: Colors.grey[600],
                                                 size: 20)),
-
+                                    // SizedBox(width: 5,),
+                                    
                                     if(userData['isIndustry'] && isexp)
-                                    MyButton(onTap: (){}, text: 'apply')
+                                    MyButton(onTap: () => _launchURL(
+                                      Uri.parse('https://docs.google.com/forms/d/e/1FAIpQLSfiELSVfDzeAN-LnNo9bIzawnu-GdHBeNwjvrbrKe5kn295EA/viewform?usp=sf_link')
+                                    ),
+                                    text: 'Apply'),
+
+                                    if(userData['isExpert'] && isind)
+                                    MyButton(onTap: () => _launchURL(
+                                      Uri.parse('https://docs.google.com/forms/d/e/1FAIpQLSeIUcNbisGIUqUEI2fUlhbZLo3gO2W4cp2RA4b33whUduOxAg/viewform?usp=sf_link')
+                                    ), text: 'Hire Me'),
                                     ],
                                   ),
                                   // bio
@@ -285,11 +318,13 @@ class _ProfilePageState extends State<ProfilePage> {
                             padding: const EdgeInsets.only(left: 39.0),
                             child: Row(
                               children: [
+                                if(!userData['isExpert'])
                                 MyButton(
                                   text: " Expert ",
                                   onTap: () => _launchURL(
-                                      Uri.parse('https://google.com')),
+                                      Uri.parse('https://docs.google.com/forms/d/e/1FAIpQLSfun3UsJ3bQ2LNOxBYyQ2OhTjcD6ZkaxHY9s0-m5zn9-C91gQ/viewform?usp=sf_link')),
                                 ),
+                                if(!userData['isIndustry'])
                                 MyButton(
                                   text: "Industry",
                                   onTap: () => _launchURL(

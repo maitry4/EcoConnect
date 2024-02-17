@@ -114,9 +114,7 @@ class _HomePageState extends State<HomePage> {
                   GButton(
                     icon: Icons.person,
                     text:"Profile",
-                  ),
-                 
-                  
+                  ),            
                 ]
           ),
       ),
