@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eco_connect/components/my_textfield.dart';
 import 'package:eco_connect/components/post_ui.dart';
 import 'package:eco_connect/helper/helper_method.dart';
+import 'package:eco_connect/pages/add_image_post.dart';
+import 'package:eco_connect/pages/home_images.dart';
 import 'package:eco_connect/pages/profile_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -81,6 +83,10 @@ class _HomePageState extends State<HomePage> {
   final List _pages = [
     // home page
     const HomePage(),
+    // images display
+    HomeImagePage(),
+    // // Add image post page
+    AddPostImagePage(),
     // profile 2
     ProfilePage(username: FirebaseAuth.instance.currentUser != null ? FirebaseAuth.instance.currentUser!.email : 'something'),
   ];
@@ -110,9 +116,18 @@ class _HomePageState extends State<HomePage> {
                     text:"Home",
                   ),
                   GButton(
+                    icon: Icons.photo_camera_back,
+                    text: "Images",
+                  ),
+                  GButton(
+                    icon: Icons.add_a_photo,
+                    text:"Post",
+                  ),
+                  GButton(
                     icon: Icons.person,
                     text:"Profile",
                   ),            
+                  
                 ]
           ),
       ),

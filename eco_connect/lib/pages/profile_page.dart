@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eco_connect/components/follow_button.dart';
+import 'package:eco_connect/components/image_post_ui.dart';
 import 'package:eco_connect/components/my_button.dart';
 import 'package:eco_connect/components/post_ui.dart';
 import 'package:eco_connect/helper/helper_method.dart';
@@ -27,6 +28,8 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   void initState() {
     super.initState();
+    isexp = false;
+    isind = false;
     getFollowValue();
   }
   void getFollowValue() async {
@@ -374,17 +377,68 @@ class _ProfilePageState extends State<ProfilePage> {
                     width: 50,
                   ),
                   // users posts
-                  Padding(
-                    padding: const EdgeInsets.only(top: 30.0, left: 30.0),
-                    child: Text(
-                      'Posts',
-                      style: TextStyle(
-                          color: Colors.grey[600],
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold),
-                    ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(top: 30.0, left: 30.0),
+                        child: Text(
+                          'Image Posts',
+                          style: TextStyle(
+                              color: Colors.grey[600],
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      StreamBuilder(
+                    stream: FirebaseFirestore.instance
+                        .collection("User Image Posts")
+                        .where('UserEmail', isEqualTo: widget.username)
+                        .orderBy("TimeStamp", descending: false)
+                        .snapshots(),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        return ListView.builder(
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemCount: snapshot.data!.docs.length,
+                          itemBuilder: (context, index) {
+                            // get message
+                            final post = snapshot.data!.docs[index];
+                            return ImagePostUi(
+                              message: post["description"],
+                              user: post["UserEmail"],
+                              postId: post.id,
+                              time: formatDate(post['TimeStamp']),
+                              likes: List<String>.from(post['Likes'] ?? []),
+                              commentCount: post['commentCount'],
+                              imageUrl: post['PostImageURL'],
+                            );
+                          },
+                        );
+                      } else if (snapshot.hasError) {
+                        return Center(child: Text('Error${snapshot.error}'));
+                      }
+                      return const Center(child: CircularProgressIndicator());
+                    },
                   ),
-                  StreamBuilder(
+                    ],
+                  ),
+                  
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(top: 30.0, left: 30.0),
+                        child: Text(
+                          'Text Posts',
+                          style: TextStyle(
+                              color: Colors.grey[600],
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      StreamBuilder(
                     stream: FirebaseFirestore.instance
                         .collection("User Posts")
                         .where('UserEmail', isEqualTo: widget.username)
@@ -415,6 +469,11 @@ class _ProfilePageState extends State<ProfilePage> {
                       return const Center(child: CircularProgressIndicator());
                     },
                   ),
+                    ],
+                  ),
+                  
+                  
+                  
                   const SizedBox(
                     height: 30,
                   ),
