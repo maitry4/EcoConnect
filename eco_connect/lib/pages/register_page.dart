@@ -103,7 +103,7 @@ class _RegisterPageState extends State<RegisterPage> {
               // logo
               SvgPicture.asset(
                 'lib/images/main_icon.svg',
-                height: 64,
+                height: 150,
               ),
 
               const SizedBox(height: 25),

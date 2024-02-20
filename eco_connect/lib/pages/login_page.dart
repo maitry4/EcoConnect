@@ -75,7 +75,7 @@ class _LoginPageState extends State<LoginPage> {
               // svg
               SvgPicture.asset(
                 'lib/images/main_icon.svg',
-                height: 64,
+                height: 150,
               ),
 
               const SizedBox(height: 50),

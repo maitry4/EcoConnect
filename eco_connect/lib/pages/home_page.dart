@@ -5,6 +5,7 @@ import 'package:eco_connect/helper/helper_method.dart';
 import 'package:eco_connect/pages/add_image_post.dart';
 import 'package:eco_connect/pages/home_images.dart';
 import 'package:eco_connect/pages/profile_page.dart';
+import 'package:eco_connect/pages/search_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
@@ -85,8 +86,10 @@ class _HomePageState extends State<HomePage> {
     const HomePage(),
     // images display
     HomeImagePage(),
-    // // Add image post page
+    // Add image post page
     AddPostImagePage(),
+    // search page
+    SearchPage(),
     // profile 2
     ProfilePage(username: FirebaseAuth.instance.currentUser != null ? FirebaseAuth.instance.currentUser!.email : 'something'),
   ];
@@ -122,6 +125,10 @@ class _HomePageState extends State<HomePage> {
                   GButton(
                     icon: Icons.add_a_photo,
                     text:"Post",
+                  ),
+                  GButton(
+                    icon: Icons.search,
+                    text:"Search",
                   ),
                   GButton(
                     icon: Icons.person,
