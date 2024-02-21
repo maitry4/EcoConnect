@@ -100,7 +100,7 @@ class _AddPostImagePageState extends State<AddPostImagePage> {
       final storageRef = FirebaseStorage.instance
           .ref()
           .child('Images'); // Replace with your folder name
-      final filename = Uuid().v4(); // Generate unique filename
+      final filename = const Uuid().v4(); // Generate unique filename
       final uploadTask = storageRef.child('$filename.jpg').putData(_file!);
       print("(((((((())))))))");
       final desc = _descriptionController.text;
@@ -161,7 +161,7 @@ class _AddPostImagePageState extends State<AddPostImagePage> {
                 padding: const EdgeInsets.only(top: 80.0),
                 child: Column(
                   children: [
-                    Text("Click or an Upload Image",
+                    const Text("Click or an Upload Image",
                         style: TextStyle(
                           fontSize: 30,
                         )),
@@ -183,8 +183,8 @@ class _AddPostImagePageState extends State<AddPostImagePage> {
               actions: [
                 TextButton(
                     onPressed: postImage,
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
+                    child: const Padding(
+                      padding: EdgeInsets.all(8.0),
                       child: Text(
                         'Post',
                         style: TextStyle(

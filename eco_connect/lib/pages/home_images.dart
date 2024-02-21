@@ -1,13 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eco_connect/components/image_post_ui.dart';
-import 'package:eco_connect/components/my_textfield.dart';
-import 'package:eco_connect/components/post_ui.dart';
 import 'package:eco_connect/helper/helper_method.dart';
-import 'package:eco_connect/pages/add_image_post.dart';
-import 'package:eco_connect/pages/profile_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:google_nav_bar/google_nav_bar.dart';
 
 class HomeImagePage extends StatefulWidget {
   const HomeImagePage({super.key});

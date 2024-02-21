@@ -1,11 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:eco_connect/components/image_post_ui.dart';
 import 'package:eco_connect/components/my_textfield.dart';
-import 'package:eco_connect/components/post_ui.dart';
 import 'package:eco_connect/components/search_post_ui.dart';
-import 'package:eco_connect/helper/helper_method.dart';
 import 'package:eco_connect/pages/profile_page.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class SearchPage extends StatefulWidget {
@@ -98,7 +94,7 @@ class _SearchPageState extends State<SearchPage> {
             Padding(
               padding: const EdgeInsets.only(left: 300.0),
               child: IconButton(
-                icon: Icon(Icons.person_search),
+                icon: const Icon(Icons.person_search),
                 onPressed: getUsers,
               ),
             ),
@@ -111,7 +107,7 @@ class _SearchPageState extends State<SearchPage> {
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
                     return GridView.builder(
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 2,
                           crossAxisSpacing: 4.0,
                           mainAxisSpacing: 4.0),

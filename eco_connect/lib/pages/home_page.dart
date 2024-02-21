@@ -85,11 +85,11 @@ class _HomePageState extends State<HomePage> {
     // home page
     const HomePage(),
     // images display
-    HomeImagePage(),
+    const HomeImagePage(),
     // Add image post page
-    AddPostImagePage(),
+    const AddPostImagePage(),
     // search page
-    SearchPage(),
+    const SearchPage(),
     // profile 2
     ProfilePage(username: FirebaseAuth.instance.currentUser != null ? FirebaseAuth.instance.currentUser!.email : 'something'),
   ];

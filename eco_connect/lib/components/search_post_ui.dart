@@ -1,12 +1,5 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:eco_connect/components/comment.dart';
-import 'package:eco_connect/components/comment_button.dart';
-import 'package:eco_connect/components/delete_button.dart';
-import 'package:eco_connect/components/like_button.dart';
-import 'package:eco_connect/helper/helper_method.dart';
 import 'package:eco_connect/pages/profile_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 
 class SearchPostUi extends StatefulWidget {
