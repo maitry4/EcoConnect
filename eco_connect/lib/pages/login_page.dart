@@ -1,10 +1,8 @@
 import 'package:eco_connect/pages/forgot_pw_page.dart';
-import 'package:eco_connect/services/auth_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:eco_connect/components/my_button.dart';
 import 'package:eco_connect/components/my_textfield.dart';
-import 'package:eco_connect/components/square_tile.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -145,7 +143,6 @@ class _LoginPageState extends State<LoginPage> {
 
               const SizedBox(height: 50),
 
-              // or continue with
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 25.0),
                 child: Row(
@@ -156,13 +153,7 @@ class _LoginPageState extends State<LoginPage> {
                         color: Colors.grey[400],
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                      child: Text(
-                        'Or continue with',
-                        style: TextStyle(color: Colors.grey[700]),
-                      ),
-                    ),
+                    
                     Expanded(
                       child: Divider(
                         thickness: 0.5,
@@ -174,25 +165,7 @@ class _LoginPageState extends State<LoginPage> {
               ),
 
               const SizedBox(height: 50),
-
-              // google + apple sign in buttons
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  // google button
-                  SquareTile(
-                    onTap: () => AuthService().signInWithGoogle(),
-                    imagePath: 'lib/images/google.png'
-                    ),
-
-                  const SizedBox(width: 25),
-
-                  // apple button
-                  // SquareTile(imagePath: 'lib/images/apple.png')
-                ],
-              ),
-
-              const SizedBox(height: 50),
+              
 
               // not a member? register now
               Row(
