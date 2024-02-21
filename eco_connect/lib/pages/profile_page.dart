@@ -287,8 +287,13 @@ class _ProfilePageState extends State<ProfilePage> {
                                   // bio
                                   Row(
                                     children: [
-                                      Text(
+                                      SizedBox (
+                                        width:200,
+                                        child:Text(
                                         userData['bio'],
+                                        maxLines: 20, 
+                                        overflow: TextOverflow.clip,
+                                      ),
                                       ),
                                       if (widget.username == currentUser.email)
                                         // Icon to edit

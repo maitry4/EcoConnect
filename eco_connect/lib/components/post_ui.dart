@@ -206,7 +206,7 @@ class _PostUiState extends State<PostUi> {
               children: [
                 // message
                 SizedBox(
-                  width: 300,
+                  width: 200,
                   child: Text(
                     widget.message,
                     maxLines: 20, 

@@ -44,30 +44,6 @@ class _HomePageState extends State<HomePage> {
       textController.clear();
     });
   }
-  // open home page
-  // void goToHomePage() {
-  //   // pop the menu drawer
-  //   Navigator.pop(context);
-
-  //   // go to the home page
-  //   Navigator.push(
-  //     context,
-  //     MaterialPageRoute(builder: (context) => HomePage(),
-  //     ),
-  //   );
-  // }
-  // open profile page
-  // void goToProfilePage() {
-  //   // pop the menu drawer
-  //   Navigator.pop(context);
-
-  //   // go to the profile page
-  //   Navigator.push(
-  //     context,
-  //     MaterialPageRoute(builder: (context) => ProfilePage(username: FirebaseAuth.instance.currentUser != null ? FirebaseAuth.instance.currentUser!.email : 'something'),
-  //     ),
-  //   );
-  // }
 
   int currentIndex = 0;
   void goToPage(index) {
