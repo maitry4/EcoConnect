@@ -220,7 +220,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Padding(
-                          padding: const EdgeInsets.only(left: 40),
+                          padding: const EdgeInsets.only(left: 20),
                           child: Row(
                             children: [
                               if(!userData['isExpert'] && !userData['isIndustry'])
@@ -256,11 +256,14 @@ class _ProfilePageState extends State<ProfilePage> {
                                     
                                     children: [
                                       // username
-                                      Text(
-                                        userData['username'],
-                                        style: const TextStyle(
-                                          fontWeight: FontWeight.bold,
+                                      SizedBox(
+                                        child: Text(
+                                          userData['username'],
+                                          style: const TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                          ),
                                         ),
+                                        width: 100
                                       ),
                                       // Icon to edit
                                       if (widget.username == currentUser.email)
@@ -288,7 +291,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                   Row(
                                     children: [
                                       SizedBox (
-                                        width:200,
+                                        width:150,
                                         child:Text(
                                         userData['bio'],
                                         maxLines: 20, 

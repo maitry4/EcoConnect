@@ -4,6 +4,7 @@ import 'package:eco_connect/components/post_ui.dart';
 import 'package:eco_connect/helper/helper_method.dart';
 import 'package:eco_connect/pages/add_image_post.dart';
 import 'package:eco_connect/pages/home_images.dart';
+import 'package:eco_connect/pages/onboarding_screen.dart';
 import 'package:eco_connect/pages/profile_page.dart';
 import 'package:eco_connect/pages/search_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -109,7 +110,7 @@ class _HomePageState extends State<HomePage> {
                   GButton(
                     icon: Icons.person,
                     text:"Profile",
-                  ),            
+                  ),
                   
                 ]
           ),

@@ -1,4 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:eco_connect/intro_pages/intro_page1.dart';
+import 'package:eco_connect/pages/onboarding_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:eco_connect/components/my_button.dart';
@@ -49,8 +51,13 @@ class _RegisterPageState extends State<RegisterPage> {
             'isIndustry':false,
             'followers':[],
             'following':[],
+            'userHasCompletedOnboarding':false,
           });
-          if(context.mounted) Navigator.pop(context);
+          Navigator.pop(context);
+
+          Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return OnBoardingPage();
+                  }));
           
       }
       else {
@@ -73,6 +80,7 @@ class _RegisterPageState extends State<RegisterPage> {
         invalidCredential(e.code);
         Navigator.pop(context);
       }
+
     }
 
     // pop the loading circle
